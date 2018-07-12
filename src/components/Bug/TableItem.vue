@@ -1,20 +1,56 @@
 <template>
     <div class="bug-table-item">
-        <div class="bug-table-item__description"></div>
-        <div class="bug-table-item__priority"></div>
-        <div class="bug-table-item__file"></div>
-        <div class="bug-table-item__date-created"></div>
-        <div class="bug-table-item__date-edited"></div>
-        <div class="bug-table-item__author"></div>
-        <div class="bug-table-item__assignee"></div>
-        <div class="bug-table-item__status"></div>
-        <div class="bug-table-item__comment"></div>
-        <div class="bug-table-item__actions"></div>
+        <div class="bug-table-item__cell" v-for="cell in getCells" :key="cell.id">
+            <component 
+            :is="cell.component"
+             v-bind="cell.value"
+             @changeValue="changeBug"/>
+            </div>
     </div>
 </template>
 <script>
+import ItemPriority from './ItemPriority';
 export default {
-    
+    data () {
+        return {
+             cells: [
+            {id: 'file', component: ItemPriority, value: false},
+            {id: 'description', component: ItemPriority, value: false},
+            {id: 'priority', component: ItemPriority, value: false},
+            {id: 'date_created', component: ItemPriority, value: false},
+            {id: 'date_edited', component: ItemPriority, value: false},
+            {id: 'author', component: ItemPriority, value: false},
+            {id: 'assignee', component: ItemPriority, value: false},
+            {id: 'status', component: ItemPriority, value: false},
+            {id: 'comment', component: ItemPriority, value: false},
+            {id: 'actions', component: ItemPriority, value: false},
+            ]
+        }
+    },
+    props: {
+        bug: Object,
+        bug_index : Number,
+        columns_sort: Array
+    },
+    computed: {
+        getCells () {
+            return this.cells.sort(
+                (cell1, cell2) =>  this.columns_sort.indexOf(cell1.id) - this.columns_sort.indexOf(cell2.id))
+                .map(cell => {return {...cell, value : {[cell.id] : this.bug[cell.id],  id : cell.id }}} );
+        }
+    },
+    components: {
+        ItemPriority
+    },
+    methods : {
+        changeBug (params) {
+            this.$emit('changeBug', {...params, index : this.bug_index});
+        }
+    },
+    created () {
+    },
+    updated () {
+    }
 }
 </script>
 

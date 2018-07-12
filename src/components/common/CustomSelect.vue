@@ -52,6 +52,7 @@ export default {
         },
         optionPick (option) {
             this.$emit('input', option.value);
+            this.is_show = false;
         },
         showSelect () {
             this.is_show = true;
@@ -59,17 +60,25 @@ export default {
     },
     created () {
         document.addEventListener("click", this.closeSelect.bind(this));
+    },
+    updated () {
     }
 }
 </script>
 <style lang="stylus">
-.custom-select 
+.custom-select
+    cursor pointer
+    position relative
     &--active 
         .custom-select__inner 
-            display: block
+            display block
         
     
     &__inner 
-        display: none
+        display none
+        position absolute
+        z-index 10
+        background white
+        width 100%
     
 </style>

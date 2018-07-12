@@ -1,16 +1,16 @@
 <template>
   <div id="app">
-    <ItemPriority/>
+    <BugTableList/>
   </div>
 </template>
 
 <script>
-import ItemPriority from './components/Bug/ItemPriority.vue';
-
+import BugTableList from './components/BugTableList.vue';
+import styl from './styles/main.styl';
 export default {
   name: 'app',
   components: {
-    ItemPriority,
+    BugTableList,
   },
 };
 </script>
