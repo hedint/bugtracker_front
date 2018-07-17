@@ -1,11 +1,12 @@
 <template>
-    <div class="bug-table-item__priority">
-          <CustomSelect :value="priority" @input="changeValue" :items="items" :empty_label="'Выберите приоритет'"/>
-    </div>
+  <div class="bug-table-item__priority">
+    <CustomSelect :value="priority" @input="changeValue" :items="items" :empty_label="'Выберите приоритет'" />
+  </div>
 </template>
 <script>
 import CustomSelect from "../common/CustomSelect.vue";
 export default {
+  name: "ItemPriority",
   data() {
     return {
       items: [
@@ -32,20 +33,19 @@ export default {
       ]
     };
   },
-  props : {
-    priority : Number,
-    id : String,
+  props: {
+    priority: Number,
+    id: String
   },
   name: "ItemPriority",
-  methods : {
-    changeValue (value) {
-      this.$emit('changeValue', {value, id : this.id})
+  methods: {
+    changeValue(value) {
+      this.$emit("changeValue", { value, id: this.id });
     }
   },
   components: {
     CustomSelect
   },
-  updated () {
-  }
+  updated() {}
 };
 </script>

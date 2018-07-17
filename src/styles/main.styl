@@ -3,7 +3,20 @@
     margin 20px auto
     width 100%
     max-width 1700px
+    border-collapse: collapse
+    border-spacing: 0
 .bug-table-item
     display table-row
+    &:not(:first-child)
+        border-top: 1px solid #e5e5e5
     &__cell
         display table-cell
+        text-align left
+        vertical-align bottom
+        padding: 12px 8px
+    &__description
+        max-width 400px
+    &--header
+        & ^[0]__cell
+            text-transform: uppercase
+            color #999
