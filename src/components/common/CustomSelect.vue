@@ -1,8 +1,11 @@
 <template>
     <div class="custom-select" :class="{'custom-select--active': is_show}" ref="custom_select" @click.stop="showSelect">
-        <div class="custom-select__value">{{getTitle}}</div>
+        <div class="custom-select__value" :style="getStyle">{{getTitle}}
+          <i class="fas fa-angle-down" v-if="!is_show"></i>
+          <i class="fas fa-angle-up" v-if="is_show"></i>
+        </div>
         <div class="custom-select__inner">
-            <div class="custom-select__option" :style="getStyle" :key="option.title+'_'+option.value" v-for="option in items" @click.stop="optionPick(option)">
+            <div class="custom-select__option" :style="getOptionStyle(option)" :key="option.title+'_'+option.value" v-for="option in items" @click.stop="optionPick(option)">
                 <div class="custom-select__label">{{option.label}}</div>
                 <div class="custom-select__icon" v-if="option.icon">
                     <img :src="option.icon" />
@@ -26,16 +29,18 @@ export default {
     getActiveOption() {
       return this.items.find(option => option.value === this.value);
     },
+    getStyle () {
+      let style = {};
+      if (this.getActiveOption && this.getActiveOption.color) {
+        style.color = this.getActiveOption.color;
+      }
+      return style;
+    },
     getTitle() {
       return this.getActiveOption
         ? this.getActiveOption.label
         : this.empty_label;
     },
-    getStyle() {
-      return this.getActiveOption && this.getActiveOption.color
-        ? this.getActiveOption.color
-        : false;
-    }
   },
   methods: {
     closeSelect(e) {
@@ -48,12 +53,19 @@ export default {
         this.is_show = false;
       }
     },
+    getOptionStyle (option) {
+       let style = {};
+      if (option.color) {
+        style.color = option.color;
+      }
+      return style;
+    },
     optionPick(option) {
       this.$emit("input", option.value);
       this.is_show = false;
     },
     showSelect() {
-      this.is_show = true;
+      this.is_show = !this.is_show;
     }
   },
   created() {
@@ -66,11 +78,23 @@ export default {
 .custom-select {
     cursor: pointer;
     position: relative;
+    user-select none
+    min-width 110px
 
     &--active {
         .custom-select__inner {
             display: block;
         }
+    }
+    &__value {
+      border 1px solid black
+      padding 4px 16px 4px 4px
+      position relative
+      i {
+        position absolute
+        right 6px
+        color black
+      }
     }
 
     &__inner {
@@ -79,6 +103,10 @@ export default {
         z-index: 10;
         background: white;
         width: 100%;
+        border 1px solid black
+        border-top none
+        padding 4px 16px 4px 4px
+
     }
 }
 </style>

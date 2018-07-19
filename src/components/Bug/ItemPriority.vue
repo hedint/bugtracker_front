@@ -1,6 +1,6 @@
 <template>
   <div class="bug-table-item__priority">
-    <CustomSelect :value="priority" @input="changeValue" :items="items" :empty_label="'Выберите приоритет'" />
+    <CustomSelect :value="priority" @input="changeValue" :items="items" :empty_label="'Приоритет:'" />
   </div>
 </template>
 <script>
@@ -18,17 +18,17 @@ export default {
         {
           value: 10,
           label: "major",
-          color: "red"
+          color: "#ff7514"
         },
         {
           value: 20,
           label: "critical",
-          color: "red"
+          color: "#ff2400"
         },
         {
           value: 30,
           label: "blocker",
-          color: "red"
+          color: "#c51d34"
         }
       ]
     };

@@ -1,5 +1,7 @@
 <template>
-  <div :class="getClass">{{value}}</div>
+  <div :class="getClass">
+    <i class="fas fa-edit" title="редактировать"></i>
+  </div>
 </template>
 <script>
 export default {

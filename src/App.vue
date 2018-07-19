@@ -1,16 +1,20 @@
 <template>
   <div id="app">
     <BugTableList/>
+    <AddBugButton/>
   </div>
 </template>
 
 <script>
 import BugTableList from "./components/BugTableList.vue";
+import AddBugButton from "./components/AddBugButton.vue";
+
 import styl from "./styles/main.styl";
 export default {
   name: "app",
   components: {
-    BugTableList
+    BugTableList,
+    AddBugButton
   }
 };
 </script>
