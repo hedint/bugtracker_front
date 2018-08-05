@@ -5,15 +5,15 @@
 </template>
 <script>
 export default {
-  name: "ItemValue",
-  props : {
-    id : String,
+  name: 'ItemValue',
+  props: {
+    id: String,
   },
   computed: {
     getClass() {
       return `bug-table-item__${this.id}`;
-    }
+    },
   },
-  inheritAttrs: false
+  inheritAttrs: false,
 };
 </script>

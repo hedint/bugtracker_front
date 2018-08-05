@@ -2,6 +2,7 @@
   <div :class="getClass">{{getText}}</div>
 </template>
 <script>
+const format_str = (str) => ('0' + str).slice(-2);
 export default {
   name: "ItemDate",
   props: {
@@ -29,7 +30,7 @@ export default {
         date.getDate() === cur_date.getDate() &&
         date.getMonth() === cur_date.getMonth()
       ) {
-        return "Сегодня, " + this.getTime;
+        return `Сегодня, ${this.getTime}`;
       }
       cur_date.setDate(cur_date.getDate() - 1);
       if (
@@ -37,7 +38,7 @@ export default {
         date.getDate() === cur_date.getDate() &&
         date.getMonth() === cur_date.getMonth()
       ) {
-        return "Вчера, " + this.getTime;
+        return `Вчера, ${this.getTime}`;
       }
       return this.getDateTime();
     },
@@ -45,17 +46,18 @@ export default {
       const date = new Date();
       const val = this.date_created || this.date_edited;
       date.setTime(val);
-      return date.getHours() + ':' + date.getMinutes();
+
+      return `${format_str(date.getHours())}:${format_str(date.getMinutes())}`;
     },
-    getDate () {
-const date = new Date();
+    getDate() {
+      const date = new Date();
       const val = this.date_created || this.date_edited;
       date.setTime(val);
-      return this.getDate() + '.' +(this.getMonth() + 1)
+      return `${this.getDate()}.${this.getMonth() + 1}`;
     },
-    getDateTime () {
-      return this.getDate() + ' ' + this.getTime();
-    }
-  }
+    getDateTime() {
+      return `${this.getDate()} ${this.getTime()}`;
+    },
+  },
 };
 </script>
